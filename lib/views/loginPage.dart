@@ -12,6 +12,7 @@ class loginPage extends StatefulWidget {
 
 class _loginPageState extends State<loginPage> {
   String logo = 'images/Logo_v3.jpg';
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,13 +96,27 @@ class _loginPageState extends State<loginPage> {
                           BoxShadow(color: Colors.black12, blurRadius: 5)
                         ]),
                     child: TextField(
+                      obscureText: _obscureText,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          icon: Icon(Icons.key, color: Colors.grey),
-                          hintText: 'Senha'),
+                        border: InputBorder.none,
+                        hintText: 'Senha',
+                        icon: Icon(Icons.password, color: Colors.grey),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                              _obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.grey),
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                   ),
-                  Align(
+                  /*Align(
                     alignment: Alignment.centerRight,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 12, right: 70),
@@ -110,7 +125,7 @@ class _loginPageState extends State<loginPage> {
                         style: TextStyle(color: Colors.grey),
                       ),
                     ),
-                  ),
+                  ),*/
                   Spacer(),
                   Container(
                     height: 50,
@@ -135,9 +150,17 @@ class _loginPageState extends State<loginPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: Center(
-                        child: Text(
-                          'Não tem uma conta? Registre-se',
-                          style: TextStyle(color: Colors.grey, fontSize: 17),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => signInPage()));
+                          },
+                          child: Text(
+                            'Não tem uma conta? Registre-se',
+                            style: TextStyle(color: Colors.grey, fontSize: 17),
+                          ),
                         ),
                       ),
                     ),
