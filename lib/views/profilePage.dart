@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mlink_app/views/loginPage.dart';
 import 'package:mlink_app/widgets/numbers_widget.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});
@@ -107,6 +108,8 @@ class _profilePageState extends State<profilePage> {
                 const SizedBox(width: 12),
                 buildSocialIcon(FontAwesomeIcons.twitter),
                 const SizedBox(width: 12),
+                buildSocialIcon(FontAwesomeIcons.whatsapp),
+                const SizedBox(width: 12),
               ],
             ),
             const SizedBox(height: 23),
@@ -122,7 +125,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -142,7 +145,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -162,7 +165,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -190,7 +193,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -210,7 +213,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -230,7 +233,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
