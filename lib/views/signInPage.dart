@@ -11,11 +11,12 @@ class signInPage extends StatefulWidget {
 }
 
 class _signInPageState extends State<signInPage> {
-  String logo = 'images/Logo_v3.jpg';
+  String logo = 'images/Logo_v2_roxa.png';
   bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 139, 92, 235),
       body: Container(
         child: Column(
           children: <Widget>[
@@ -23,9 +24,9 @@ class _signInPageState extends State<signInPage> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 3.5,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 139, 92, 235),
+                color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(80),
+                  bottomLeft: Radius.circular(150),
                 ),
               ),
               child: Column(
@@ -48,7 +49,7 @@ class _signInPageState extends State<signInPage> {
                       child: Text(
                         'Cadastro',
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 139, 92, 235),
                             fontSize: 30,
                             fontWeight: FontWeight.bold),
                       ),
@@ -185,7 +186,7 @@ class _signInPageState extends State<signInPage> {
                     height: 50,
                     width: MediaQuery.of(context).size.width / 1.3,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 139, 92, 235),
+                      color: Colors.white,
                       borderRadius: BorderRadius.all(
                         Radius.circular(50),
                       ),
@@ -194,7 +195,8 @@ class _signInPageState extends State<signInPage> {
                       child: Text(
                         'cadastrar'.toUpperCase(),
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                            color: Color.fromARGB(255, 139, 92, 235),
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -213,7 +215,7 @@ class _signInPageState extends State<signInPage> {
                           },
                           child: Text(
                             'Já tem uma conta? Login',
-                            style: TextStyle(color: Colors.grey, fontSize: 17),
+                            style: TextStyle(color: Colors.white, fontSize: 17),
                           ),
                         ),
                       ),
@@ -221,7 +223,19 @@ class _signInPageState extends State<signInPage> {
                   ),
                 ],
               ),
-            )
+            ),
+            Spacer(),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 11.5,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(60),
+                  topRight: Radius.circular(60),
+                ),
+              ),
+            ),
           ],
         ),
       ),

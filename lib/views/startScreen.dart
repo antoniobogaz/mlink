@@ -24,26 +24,34 @@ class _startScreenState extends State<startScreen> {
           //color: Colors.white,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(55),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(60), bottomRight: Radius.circular(60)),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 10),
+              SizedBox(height: 17),
               Text(
-                'Bem-Vindo!',
+                'Bem-Vindo(a) ao Musical Link!',
                 style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+                  color: Colors.black54,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
-              SizedBox(height: 10),
-              Text(
-                'Faça login ou cadastre-se para continuar',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+              SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Faça login ou cadastre-se para continuar.',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 100),
               InkWell(
@@ -95,7 +103,7 @@ class _startScreenState extends State<startScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 70),
+              SizedBox(height: 60),
               Image.asset(
                 logo,
                 height: 80,

@@ -2,6 +2,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mlink_app/views/signInPage.dart';
+import 'package:mlink_app/views/ProfilePage.dart';
 
 class loginPage extends StatefulWidget {
   const loginPage({super.key});
@@ -11,11 +12,12 @@ class loginPage extends StatefulWidget {
 }
 
 class _loginPageState extends State<loginPage> {
-  String logo = 'images/Logo_v3.jpg';
+  String logo = 'images/Logo_v2_roxa.png';
   bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 139, 92, 235),
       body: Container(
         child: Column(
           children: <Widget>[
@@ -23,9 +25,9 @@ class _loginPageState extends State<loginPage> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 3.5,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 139, 92, 235),
+                color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(80),
+                  bottomRight: Radius.circular(150),
                 ),
               ),
               child: Column(
@@ -48,7 +50,7 @@ class _loginPageState extends State<loginPage> {
                       child: Text(
                         'Login',
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 139, 92, 235),
                             fontSize: 30,
                             fontWeight: FontWeight.bold),
                       ),
@@ -127,20 +129,29 @@ class _loginPageState extends State<loginPage> {
                     ),
                   ),*/
                   Spacer(),
-                  Container(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 139, 92, 235),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(50),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => profilePage()));
+                    },
+                    child: Container(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width / 1.3,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Login'.toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                      child: Center(
+                        child: Text(
+                          'Login'.toUpperCase(),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 139, 92, 235),
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
@@ -158,8 +169,8 @@ class _loginPageState extends State<loginPage> {
                                     builder: (context) => signInPage()));
                           },
                           child: Text(
-                            'Não tem uma conta? Registre-se',
-                            style: TextStyle(color: Colors.grey, fontSize: 17),
+                            'Não tem uma conta? Cadastre-se',
+                            style: TextStyle(color: Colors.white, fontSize: 17),
                           ),
                         ),
                       ),
@@ -167,7 +178,19 @@ class _loginPageState extends State<loginPage> {
                   ),
                 ],
               ),
-            )
+            ),
+            Spacer(),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 11.5,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(60),
+                  topRight: Radius.circular(60),
+                ),
+              ),
+            ),
           ],
         ),
       ),
