@@ -12,75 +12,105 @@ class startScreen extends StatefulWidget {
 }
 
 class _startScreenState extends State<startScreen> {
-  String logo = 'images/logo.jfif';
+  String logo = 'images/Logo_v2_roxa.png';
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-        scaffoldBackgroundColor: Color.fromARGB(255, 28, 28, 28),
-      ),
-      home: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
-              child: Container(
-                alignment: Alignment.center,
-                height: 500,
-                width: 300,
-                decoration: BoxDecoration(color: Colors.white),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 0, right: 0),
-                      child: Center(
-                        child: Image.asset(
-                          logo,
-                          height: 250,
-                          width: 250,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 50, right: 0),
-                          child: ElevatedButton(
-                            child: Text('Login'),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => loginPage()));
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 40, right: 0),
-                          child: ElevatedButton(
-                            child: Text('Sign In'),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => signInPage()));
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 139, 92, 235),
+      body: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width / 1.2,
+          height: MediaQuery.of(context).size.height / 2.0,
+          //color: Colors.white,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(60), bottomRight: Radius.circular(60)),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 17),
+              Text(
+                'Bem-Vindo(a) ao Musical Link!',
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Faça login ou cadastre-se para continuar.',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 100),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => loginPage()));
+                },
+                child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 139, 92, 235),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Fazer Login'.toUpperCase(),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => signInPage()),
+                  );
+                },
+                child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 139, 92, 235),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Cadastrar-se'.toUpperCase(),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 60),
+              Image.asset(
+                logo,
+                height: 80,
+                width: 80,
+              ),
+            ],
+          ),
         ),
       ),
     );
