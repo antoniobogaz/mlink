@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 
 class searchPage extends StatefulWidget {
   const searchPage({super.key});
@@ -9,6 +10,14 @@ class searchPage extends StatefulWidget {
 
 class _searchPageState extends State<searchPage> {
   final TextEditingController _controller = TextEditingController();
+  int _currentIndex = 1;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +61,9 @@ class _searchPageState extends State<searchPage> {
           ),
         ),
       ),
+      body: Container(),
+      bottomNavigationBar:
+          BottomNavBar(currentIndex: _currentIndex, onTap: _onItemTapped),
     );
   }
 }
