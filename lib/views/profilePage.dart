@@ -5,6 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mlink_app/views/loginPage.dart';
 import 'package:mlink_app/widgets/numbers_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:mlink_app/views/editProfile.dart';
+import 'package:mlink_app/views/searchPage.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});
@@ -20,6 +22,28 @@ class _profilePageState extends State<profilePage> {
   Widget build(BuildContext context) {
     //final top = coverHeight - profileHeight / 2;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Color.fromARGB(255, 139, 92, 235),
+        title: Text('Daniel da Silva'),
+        centerTitle: true, //aqui vai o nome do usuário
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => searchPage()),
+                );
+              },
+              icon: Icon(Icons.search))
+        ],
+      ),
       body: ListView(
         children: <Widget>[
           Column(
@@ -110,6 +134,7 @@ class _profilePageState extends State<profilePage> {
                 const SizedBox(width: 12),
                 buildSocialIcon(FontAwesomeIcons.whatsapp),
                 const SizedBox(width: 12),
+                buildSocialIcon(FontAwesomeIcons.spotify),
               ],
             ),
             const SizedBox(height: 23),
@@ -182,7 +207,7 @@ class _profilePageState extends State<profilePage> {
                     ],
                   ),
                 ),
-                SizedBox(width: 16),
+                SizedBox(height: 5),
                 Container(
                   alignment: Alignment.center,
                   child: Row(
@@ -341,20 +366,31 @@ class _profilePageState extends State<profilePage> {
           ),
         ),
       );
-  Widget editProfileButton() => Container(
-        padding: EdgeInsets.only(top: 15, bottom: 15),
-        height: 50,
-        width: MediaQuery.of(context).size.width / 1.3,
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 139, 92, 235),
-          borderRadius: BorderRadius.all(
-            Radius.circular(50),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            'editar perfil'.toUpperCase(),
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+  Widget editProfileButton() => InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => editProfile()),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            height: 50,
+            width: MediaQuery.of(context).size.width / 1.4,
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 139, 92, 235),
+              borderRadius: BorderRadius.all(
+                Radius.circular(50),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                'editar perfil'.toUpperCase(),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
         ),
       );
