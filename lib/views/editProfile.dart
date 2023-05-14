@@ -117,7 +117,7 @@ class _editProfileState extends State<editProfile> {
                   'Editar Perfil',
                   style: TextStyle(
                     fontSize: 35,
-                    letterSpacing: 1.5,
+                    //letterSpacing: 1.0,
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                   ),
