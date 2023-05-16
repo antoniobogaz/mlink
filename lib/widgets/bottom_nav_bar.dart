@@ -21,7 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       label: 'Search',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.add),
+      icon: Icon(Icons.group),
       label: 'Add',
     ),
     BottomNavigationBarItem(
