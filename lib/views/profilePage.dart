@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mlink_app/views/loginPage.dart';
 import 'package:mlink_app/widgets/numbers_widget.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:mlink_app/views/editProfile.dart';
+import 'package:mlink_app/views/searchPage.dart';
+import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});
@@ -15,10 +19,40 @@ class profilePage extends StatefulWidget {
 class _profilePageState extends State<profilePage> {
   final double coverHeight = 230;
   final double profileHeight = 144;
+  int _currentIndex = 4;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     //final top = coverHeight - profileHeight / 2;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Color.fromARGB(255, 139, 92, 235),
+        title: Text('Daniel da Silva'),
+        centerTitle: true, //aqui vai o nome do usuário
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => searchPage()),
+                );
+              },
+              icon: Icon(Icons.search))
+        ],
+      ),
       body: ListView(
         children: <Widget>[
           Column(
@@ -30,6 +64,8 @@ class _profilePageState extends State<profilePage> {
           ),
         ],
       ),
+      bottomNavigationBar:
+          BottomNavBar(currentIndex: _currentIndex, onTap: _onItemTapped),
     );
   }
 
@@ -55,7 +91,7 @@ class _profilePageState extends State<profilePage> {
   Widget buildCoverImage() => Container(
         color: Colors.grey,
         child: Image.network(
-            'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/faa48d2d-12c2-43d1-bf23-b5e99857825b/ddanutv-39cde392-7484-42ec-8b83-f00e58094746.png/v1/fill/w_622,h_350,q_70,strp/dance_of_lights_by_ellysiumn_ddanutv-350t.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2ZhYTQ4ZDJkLTEyYzItNDNkMS1iZjIzLWI1ZTk5ODU3ODI1YlwvZGRhbnV0di0zOWNkZTM5Mi03NDg0LTQyZWMtOGI4My1mMDBlNTgwOTQ3NDYucG5nIiwiaGVpZ2h0IjoiPD00NTAiLCJ3aWR0aCI6Ijw9ODAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLndhdGVybWFyayJdLCJ3bWsiOnsicGF0aCI6Ilwvd21cL2ZhYTQ4ZDJkLTEyYzItNDNkMS1iZjIzLWI1ZTk5ODU3ODI1YlwvZWxseXNpdW1uLTQucG5nIiwib3BhY2l0eSI6OTUsInByb3BvcnRpb25zIjowLjQ1LCJncmF2aXR5IjoiY2VudGVyIn19.3USm-rYv-0y6spWqrtA0V2B4-tpDl1qMHX25VTjDd94',
+            'https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
             width: double.infinity,
             height: coverHeight,
             fit: BoxFit.cover),
@@ -107,6 +143,9 @@ class _profilePageState extends State<profilePage> {
                 const SizedBox(width: 12),
                 buildSocialIcon(FontAwesomeIcons.twitter),
                 const SizedBox(width: 12),
+                buildSocialIcon(FontAwesomeIcons.whatsapp),
+                const SizedBox(width: 12),
+                buildSocialIcon(FontAwesomeIcons.spotify),
               ],
             ),
             const SizedBox(height: 23),
@@ -122,7 +161,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -142,7 +181,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -162,7 +201,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -179,7 +218,7 @@ class _profilePageState extends State<profilePage> {
                     ],
                   ),
                 ),
-                SizedBox(width: 16),
+                SizedBox(height: 5),
                 Container(
                   alignment: Alignment.center,
                   child: Row(
@@ -190,7 +229,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -210,7 +249,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -230,7 +269,7 @@ class _profilePageState extends State<profilePage> {
                         width: MediaQuery.of(context).size.width / 4.3,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1),
-                          color: Color.fromRGBO(139, 92, 235, 0.890),
+                          color: Color.fromARGB(255, 139, 92, 235),
                           borderRadius: BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -338,20 +377,31 @@ class _profilePageState extends State<profilePage> {
           ),
         ),
       );
-  Widget editProfileButton() => Container(
-        padding: EdgeInsets.only(top: 15, bottom: 15),
-        height: 50,
-        width: MediaQuery.of(context).size.width / 1.3,
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 139, 92, 235),
-          borderRadius: BorderRadius.all(
-            Radius.circular(50),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            'editar perfil'.toUpperCase(),
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+  Widget editProfileButton() => InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => editProfile()),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            height: 50,
+            width: MediaQuery.of(context).size.width / 1.4,
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 139, 92, 235),
+              borderRadius: BorderRadius.all(
+                Radius.circular(50),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                'editar perfil'.toUpperCase(),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
         ),
       );

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mlink_app/views/editProfile.dart';
+import 'package:mlink_app/views/profilePage.dart';
+import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/views/startScreen.dart';
 
 void main() {

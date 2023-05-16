@@ -17,8 +17,20 @@ class _loginPageState extends State<loginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        title: Text(
+          'Login',
+          style:
+              TextStyle(color: Color.fromARGB(255, 139, 92, 235), fontSize: 28),
+        ),
+        centerTitle: true, //aqui vai o nome do usuário
+      ),
       backgroundColor: Color.fromARGB(255, 139, 92, 235),
-      body: Container(
+      body: SingleChildScrollView(
+        reverse: true,
         child: Column(
           children: <Widget>[
             Container(
@@ -38,8 +50,8 @@ class _loginPageState extends State<loginPage> {
                     alignment: Alignment.center,
                     child: Image.asset(
                       logo,
-                      height: 160,
-                      width: 160,
+                      height: 210,
+                      width: 210,
                     ),
                   ),
                   //Spacer(),
@@ -48,7 +60,7 @@ class _loginPageState extends State<loginPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 17, left: 32),
                       child: Text(
-                        'Login',
+                        'Olá',
                         style: TextStyle(
                             color: Color.fromARGB(255, 139, 92, 235),
                             fontSize: 30,
@@ -177,18 +189,6 @@ class _loginPageState extends State<loginPage> {
                     ),
                   ),
                 ],
-              ),
-            ),
-            Spacer(),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 11.5,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(60),
-                  topRight: Radius.circular(60),
-                ),
               ),
             ),
           ],

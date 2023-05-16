@@ -16,8 +16,20 @@ class _signInPageState extends State<signInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        title: Text(
+          'Cadastro',
+          style:
+              TextStyle(color: Color.fromARGB(255, 139, 92, 235), fontSize: 28),
+        ),
+        centerTitle: true, //aqui vai o nome do usuário
+      ),
       backgroundColor: Color.fromARGB(255, 139, 92, 235),
-      body: Container(
+      body: SingleChildScrollView(
+        reverse: true,
         child: Column(
           children: <Widget>[
             Container(
@@ -37,8 +49,8 @@ class _signInPageState extends State<signInPage> {
                     alignment: Alignment.center,
                     child: Image.asset(
                       logo,
-                      height: 160,
-                      width: 160,
+                      height: 210,
+                      width: 210,
                     ),
                   ),
                   //Spacer(),
@@ -47,7 +59,7 @@ class _signInPageState extends State<signInPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 17, right: 32),
                       child: Text(
-                        'Cadastro',
+                        'Bem-vindo à comunidade',
                         style: TextStyle(
                             color: Color.fromARGB(255, 139, 92, 235),
                             fontSize: 30,
@@ -61,7 +73,7 @@ class _signInPageState extends State<signInPage> {
             Container(
               height: MediaQuery.of(context).size.height / 1.8,
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(top: 72),
+              padding: EdgeInsets.only(top: 30),
               child: Column(
                 children: [
                   Container(
@@ -181,8 +193,9 @@ class _signInPageState extends State<signInPage> {
                       ),
                     ),
                   ),*/
-                  Spacer(),
+                  //Spacer(),
                   Container(
+                    margin: EdgeInsets.only(top: 60),
                     height: 50,
                     width: MediaQuery.of(context).size.width / 1.3,
                     decoration: BoxDecoration(
@@ -222,18 +235,6 @@ class _signInPageState extends State<signInPage> {
                     ),
                   ),
                 ],
-              ),
-            ),
-            Spacer(),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 11.5,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(60),
-                  topRight: Radius.circular(60),
-                ),
               ),
             ),
           ],
