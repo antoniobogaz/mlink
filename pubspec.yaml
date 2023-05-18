@@ -69,6 +69,7 @@ flutter:
     - images/Logo_v3.jpg
     - images/Logo_v2_roxa.png
     - images/fotoPerfil.png
+    - images/Logo_v2_semTexto.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

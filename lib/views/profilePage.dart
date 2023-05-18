@@ -8,6 +8,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mlink_app/views/editProfile.dart';
 import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
+import 'package:mlink_app/views/feedPage.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});
@@ -19,7 +20,7 @@ class profilePage extends StatefulWidget {
 class _profilePageState extends State<profilePage> {
   final double coverHeight = 230;
   final double profileHeight = 144;
-  int _currentIndex = 4;
+  int _currentIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {

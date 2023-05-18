@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mlink_app/views/signInPage.dart';
 import 'package:mlink_app/views/ProfilePage.dart';
+import 'package:mlink_app/views/feedPage.dart';
 
 class loginPage extends StatefulWidget {
   const loginPage({super.key});
@@ -143,10 +144,8 @@ class _loginPageState extends State<loginPage> {
                   Spacer(),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => profilePage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => feedPage()));
                     },
                     child: Container(
                       height: 50,
@@ -178,7 +177,7 @@ class _loginPageState extends State<loginPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => signInPage()));
+                                    builder: (context) => feedPage()));
                           },
                           child: Text(
                             'Não tem uma conta? Cadastre-se',
