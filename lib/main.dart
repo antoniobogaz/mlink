@@ -5,6 +5,8 @@ import 'package:mlink_app/views/feedPage.dart';
 import 'package:mlink_app/views/profilePage.dart';
 import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/views/startScreen.dart';
+import 'package:mlink_app/views/likedProfile.dart';
+import 'package:mlink_app/views/newPost.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +25,8 @@ class MyApp extends StatelessWidget {
         '/feedPage': (context) => feedPage(),
         '/profilePage': (context) => profilePage(),
         '/search': (context) => searchPage(),
+        '/likedProfile': (context) => likedProfile(),
+        '/newPost': (context) => newPostPage(),
       },
     );
   }

@@ -61,7 +61,7 @@ class _loginPageState extends State<loginPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 17, left: 32),
                       child: Text(
-                        'Olá',
+                        'Vamos lá',
                         style: TextStyle(
                             color: Color.fromARGB(255, 139, 92, 235),
                             fontSize: 30,
@@ -144,8 +144,10 @@ class _loginPageState extends State<loginPage> {
                   Spacer(),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => feedPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => profilePage()));
                     },
                     child: Container(
                       height: 50,

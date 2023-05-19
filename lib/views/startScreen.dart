@@ -24,6 +24,7 @@ class _startScreenState extends State<startScreen> {
           //color: Colors.white,
           decoration: BoxDecoration(
             color: Colors.white,
+            border: Border.all(color: Colors.black, width: 3),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(60), bottomRight: Radius.circular(60)),
           ),

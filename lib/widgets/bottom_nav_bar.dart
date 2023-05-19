@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mlink_app/views/likedProfile.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int currentIndex;
@@ -13,7 +14,7 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   List<BottomNavigationBarItem> _bottomNavBarItems = [
     BottomNavigationBarItem(
-      icon: Icon(Icons.home_filled),
+      icon: Icon(Icons.my_library_music),
       label: 'Feed',
     ),
     BottomNavigationBarItem(
@@ -47,6 +48,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
           case 1:
             Navigator.pushNamed(context, '/search');
             break;
+          case 2:
+            Navigator.pushNamed(context, '/newPost');
+            break;
+          case 3:
+            Navigator.pushNamed(context, '/likedProfile');
+            break;
           case 4:
             Navigator.pushNamed(context, '/profilePage');
             break;
@@ -55,7 +62,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       type: BottomNavigationBarType.fixed,
       selectedItemColor: Colors.black,
       unselectedItemColor: Colors.white,
-      showSelectedLabels: true,
+      showSelectedLabels: false,
       showUnselectedLabels: false,
       backgroundColor: Color.fromARGB(255, 139, 92, 235),
       elevation: 0,

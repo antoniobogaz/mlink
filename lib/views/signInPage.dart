@@ -59,7 +59,7 @@ class _signInPageState extends State<signInPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 17, right: 32),
                       child: Text(
-                        'Bem-vindo à comunidade',
+                        'Bem-vindo',
                         style: TextStyle(
                             color: Color.fromARGB(255, 139, 92, 235),
                             fontSize: 30,

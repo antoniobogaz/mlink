@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 import 'package:mlink_app/views/profilePageOthers.dart';
+import 'package:mlink_app/views/likedProfile.dart';
 
 class feedPage extends StatefulWidget {
   const feedPage({super.key});
@@ -24,24 +25,25 @@ class _feedPageState extends State<feedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 191, 173, 226),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 5.0,
+        elevation: 0.0,
         automaticallyImplyLeading: false,
         backgroundColor: Color.fromARGB(255, 139, 92, 235),
         title: Text(
-          'Musical Link',
+          'Descobrir',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => searchPage()),
-                );
-              },
-              icon: Icon(Icons.search))
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => likedProfile()),
+              );
+            },
+            icon: Icon(Icons.favorite_border),
+          ),
         ],
       ),
       body: ListView.builder(
@@ -57,8 +59,16 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Card(
+        color: Color.fromARGB(255, 139, 92, 235),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7),
+          /*side: BorderSide(
+          color: Color.fromARGB(255, 139, 92, 235),
+          width: 2,
+        )*/
+        ),
         //margin: EdgeInsets.only(right: 7, left: 7),
         child: Container(
           height: 330.0,
@@ -82,11 +92,13 @@ class CardItem extends StatelessWidget {
                     margin: EdgeInsets.only(left: 9, top: 9),
                     child: Text(
                       'Daniel da Silva',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.white),
                     ),
                   ),
-                  SizedBox(width: 140),
+                  SizedBox(width: 128),
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: InkWell(
@@ -94,7 +106,8 @@ class CardItem extends StatelessWidget {
                       child: Container(
                         height: 35,
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          border: Border.all(color: Colors.black, width: 2),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         padding: EdgeInsets.symmetric(horizontal: 16),
@@ -103,13 +116,11 @@ class CardItem extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.favorite_border,
+                              Icons.thumb_up_alt_outlined,
                               color: Colors.white,
                               size: 20,
                             ),
-                            SizedBox(
-                              width: 3,
-                            ),
+                            SizedBox(width: 3),
                             Text(
                               'Curtir Perfil',
                               style: TextStyle(
@@ -125,7 +136,7 @@ class CardItem extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 6),
               Expanded(
                 child: Stack(
                   children: [
@@ -164,7 +175,7 @@ class CardItem extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 5.0),
+              SizedBox(height: 8.0),
             ],
           ),
         ),
