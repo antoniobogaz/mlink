@@ -12,11 +12,11 @@ class _searchPageState extends State<searchPage> {
   final TextEditingController _controller = TextEditingController();
   int _currentIndex = 1;
 
-  void _onItemTapped(int index) {
+  /*void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +62,7 @@ class _searchPageState extends State<searchPage> {
         ),
       ),
       body: Container(),
-      bottomNavigationBar:
-          BottomNavBar(currentIndex: _currentIndex, onTap: _onItemTapped),
+      bottomNavigationBar: BottomNavBar(currentIndex: _currentIndex),
     );
   }
 }

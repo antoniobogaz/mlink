@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mlink_app/views/editProfile.dart';
+import 'package:mlink_app/views/feedPage.dart';
 import 'package:mlink_app/views/profilePage.dart';
 import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/views/startScreen.dart';
@@ -18,6 +19,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: startScreen(),
+      routes: {
+        '/feedPage': (context) => feedPage(),
+        '/profilePage': (context) => profilePage(),
+        '/search': (context) => searchPage(),
+      },
     );
   }
 }

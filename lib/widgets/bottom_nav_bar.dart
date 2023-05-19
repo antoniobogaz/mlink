@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int currentIndex;
-  final void Function(int) onTap;
+  //final void Function(int) onTap;
 
-  BottomNavBar({required this.currentIndex, required this.onTap});
+  BottomNavBar({required this.currentIndex});
 
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -13,24 +13,24 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   List<BottomNavigationBarItem> _bottomNavBarItems = [
     BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      label: 'Home',
+      icon: Icon(Icons.home_filled),
+      label: 'Feed',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.search),
-      label: 'Search',
+      label: 'Busca',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.add),
-      label: 'Add',
+      label: 'Novo',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.favorite),
-      label: 'Likes',
+      label: 'Curtidas',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.account_circle),
-      label: 'Profile',
+      label: 'Perfil',
     ),
   ];
 
@@ -39,11 +39,23 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return BottomNavigationBar(
       items: _bottomNavBarItems,
       currentIndex: widget.currentIndex,
-      onTap: widget.onTap,
+      onTap: (index) {
+        switch (index) {
+          case 0:
+            Navigator.pushNamed(context, '/feedPage');
+            break;
+          case 1:
+            Navigator.pushNamed(context, '/search');
+            break;
+          case 4:
+            Navigator.pushNamed(context, '/profilePage');
+            break;
+        }
+      },
       type: BottomNavigationBarType.fixed,
       selectedItemColor: Colors.black,
       unselectedItemColor: Colors.white,
-      showSelectedLabels: false,
+      showSelectedLabels: true,
       showUnselectedLabels: false,
       backgroundColor: Color.fromARGB(255, 139, 92, 235),
       elevation: 0,

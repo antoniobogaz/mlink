@@ -10,19 +10,19 @@ import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 import 'package:mlink_app/views/feedPage.dart';
 
-class profilePage extends StatefulWidget {
-  const profilePage({super.key});
+class profilePageOthers extends StatefulWidget {
+  const profilePageOthers({super.key});
 
   @override
-  State<profilePage> createState() => _profilePageState();
+  State<profilePageOthers> createState() => _profilePageOthersState();
 }
 
-class _profilePageState extends State<profilePage> {
+class _profilePageOthersState extends State<profilePageOthers> {
   final double coverHeight = 230;
   final double profileHeight = 144;
-  int _currentIndex = 4;
+  /*int _currentIndex = 0;
 
-  /*void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
@@ -65,7 +65,7 @@ class _profilePageState extends State<profilePage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavBar(currentIndex: _currentIndex),
+      //bottomNavigationBar: BottomNavBar(),
     );
   }
 
@@ -393,13 +393,6 @@ class _profilePageState extends State<profilePage> {
               color: Color.fromARGB(255, 139, 92, 235),
               borderRadius: BorderRadius.all(
                 Radius.circular(50),
-              ),
-            ),
-            child: Center(
-              child: Text(
-                'editar perfil'.toUpperCase(),
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ),
           ),
