@@ -8,7 +8,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mlink_app/views/editProfile.dart';
 import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
-import 'package:mlink_app/views/feedPage.dart';
+import 'package:mlink_app/views/newPost.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});
@@ -60,7 +60,7 @@ class _profilePageState extends State<profilePage> {
             children: [
               buildTop(),
               buildContent(),
-              editProfileButton(),
+              //editProfileButton(),
             ],
           ),
         ],
@@ -133,7 +133,15 @@ class _profilePageState extends State<profilePage> {
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.w300),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 1),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                newPostButton(),
+                SizedBox(width: 12),
+                editProfileButton(),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -303,9 +311,12 @@ class _profilePageState extends State<profilePage> {
             //buildAbout(),
             const SizedBox(height: 20),
             //const SizedBox(height: 30),
-            Text(
-              'Contato',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            Container(),
+            Center(
+              child: Text(
+                'Contato',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(height: 16),
             Row(
@@ -342,22 +353,34 @@ class _profilePageState extends State<profilePage> {
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
-            const Divider(
+            /*const Divider(
               color: Color.fromARGB(255, 139, 92, 235),
-            ),
+            ),*/
             const SizedBox(height: 28),
-            Text(
-              'Biografia',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            Center(
+              child: Text(
+                'Biografia',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(height: 16),
-            Text(
-              'Minha história começa quando ganhei meu primeiro instrumento, um violão, aos 10 anos de idade.\nDesde então, eu me dediquei a aprender a tocar vários instrumentos, como guitarra, baixo, bateria e piano. Cresci ouvindo diferentes estilos musicais e sempre busquei incorporar essas influências em minha própria música.',
-              style: TextStyle(fontSize: 18, height: 1.4),
+            Center(
+              child: Text(
+                'Minha história começa quando ganhei meu primeiro instrumento, um violão, aos 10 anos de idade.\nDesde então, eu me dediquei a aprender a tocar vários instrumentos, como guitarra, baixo, bateria e piano. Cresci ouvindo diferentes estilos musicais e sempre busquei incorporar essas influências em minha própria música.',
+                style: TextStyle(fontSize: 18, height: 1.4),
+              ),
             ),
-            const Divider(
+            /*const Divider(
               color: Color.fromARGB(255, 139, 92, 235),
+            ),*/
+            const SizedBox(height: 28),
+            Center(
+              child: Text(
+                'Mídias',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
             ),
+            const SizedBox(height: 16),
           ],
         ),
       );
@@ -377,6 +400,7 @@ class _profilePageState extends State<profilePage> {
           ),
         ),
       );
+
   Widget editProfileButton() => InkWell(
         onTap: () {
           Navigator.push(
@@ -384,24 +408,70 @@ class _profilePageState extends State<profilePage> {
             MaterialPageRoute(builder: (context) => editProfile()),
           );
         },
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            height: 50,
-            width: MediaQuery.of(context).size.width / 1.4,
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 139, 92, 235),
-              borderRadius: BorderRadius.all(
-                Radius.circular(50),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+            child: Container(
+              alignment: Alignment.center,
+              height: 35,
+              width: MediaQuery.of(context).size.width / 2.8,
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 216, 218, 221),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 17.0),
+                    child: Icon(Icons.edit, color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    'editar perfil'.toUpperCase(),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ),
-            child: Center(
-              child: Text(
-                'editar perfil'.toUpperCase(),
+          ),
+        ),
+      );
+
+  Widget newPostButton() => InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => newPostPage()),
+          );
+        },
+        child: Container(
+          alignment: Alignment.center,
+          height: 35,
+          width: MediaQuery.of(context).size.width / 2.8,
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 216, 218, 221),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Icon(Icons.add_a_photo, color: Colors.white),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                'Adicionar Mídia'.toUpperCase(),
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
-            ),
+            ],
           ),
         ),
       );

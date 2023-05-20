@@ -60,7 +60,6 @@ class _profilePageOthersState extends State<profilePageOthers> {
             children: [
               buildTop(),
               buildContent(),
-              editProfileButton(),
             ],
           ),
         ],
@@ -303,9 +302,11 @@ class _profilePageOthersState extends State<profilePageOthers> {
             //buildAbout(),
             const SizedBox(height: 20),
             //const SizedBox(height: 30),
-            Text(
-              'Contato',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            Center(
+              child: Text(
+                'Contato',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(height: 16),
             Row(
@@ -342,22 +343,32 @@ class _profilePageOthersState extends State<profilePageOthers> {
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
-            const Divider(
+            /*const Divider(
               color: Color.fromARGB(255, 139, 92, 235),
-            ),
+            ),*/
             const SizedBox(height: 28),
-            Text(
-              'Biografia',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            Center(
+              child: Text(
+                'Biografia',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(height: 16),
             Text(
               'Minha história começa quando ganhei meu primeiro instrumento, um violão, aos 10 anos de idade.\nDesde então, eu me dediquei a aprender a tocar vários instrumentos, como guitarra, baixo, bateria e piano. Cresci ouvindo diferentes estilos musicais e sempre busquei incorporar essas influências em minha própria música.',
               style: TextStyle(fontSize: 18, height: 1.4),
             ),
-            const Divider(
+            /*const Divider(
               color: Color.fromARGB(255, 139, 92, 235),
+            ),*/
+            const SizedBox(height: 28),
+            Center(
+              child: Text(
+                'Mídias',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
             ),
+            const SizedBox(height: 16),
           ],
         ),
       );
@@ -373,27 +384,6 @@ class _profilePageOthersState extends State<profilePageOthers> {
             onTap: () {},
             child: Center(
               child: Icon(icon, size: 32, color: Colors.white),
-            ),
-          ),
-        ),
-      );
-  Widget editProfileButton() => InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => editProfile()),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            height: 50,
-            width: MediaQuery.of(context).size.width / 1.4,
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 139, 92, 235),
-              borderRadius: BorderRadius.all(
-                Radius.circular(50),
-              ),
             ),
           ),
         ),

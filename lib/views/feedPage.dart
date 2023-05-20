@@ -80,7 +80,13 @@ class CardItem extends StatelessWidget {
                   Container(
                       margin: EdgeInsets.only(left: 9, top: 5),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => profilePageOthers()),
+                          );
+                        },
                         child: CircleAvatar(
                           backgroundImage: const NetworkImage(
                             'https://images.pexels.com/photos/167378/pexels-photo-167378.jpeg?auto=compress&cs=tinysrgb&w=400',
