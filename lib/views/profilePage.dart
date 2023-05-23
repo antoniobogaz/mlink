@@ -1,10 +1,10 @@
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+//import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mlink_app/views/loginPage.dart';
+//import 'package:mlink_app/views/loginPage.dart';
 import 'package:mlink_app/widgets/numbers_widget.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+//import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mlink_app/views/editProfile.dart';
 import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
@@ -100,7 +100,7 @@ class _profilePageState extends State<profilePage> {
   Widget buildProfileImage() => CircleAvatar(
         radius: profileHeight / 2,
         backgroundColor: Colors.red,
-        backgroundImage: const NetworkImage(
+        backgroundImage: NetworkImage(
           'https://images.pexels.com/photos/167378/pexels-photo-167378.jpeg?auto=compress&cs=tinysrgb&w=400',
         ),
         child: Container(

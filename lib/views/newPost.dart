@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
-import 'package:mlink_app/views/likedProfile.dart';
+//import 'package:mlink_app/views/likedProfile.dart';
 
 class newPostPage extends StatefulWidget {
   const newPostPage({super.key});
@@ -10,7 +10,7 @@ class newPostPage extends StatefulWidget {
 }
 
 class _newPostPageState extends State<newPostPage> {
-  final TextEditingController _controller = TextEditingController();
+  //final TextEditingController _controller = TextEditingController();
   int _currentIndex = 2;
 
   /*void _onItemTapped(int index) {

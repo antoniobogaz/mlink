@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mlink_app/views/searchPage.dart';
+//import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 import 'package:mlink_app/views/profilePageOthers.dart';
 import 'package:mlink_app/views/likedProfile.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mlink_app/views/likedProfile.dart';
+//import 'package:mlink_app/views/likedProfile.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int currentIndex;

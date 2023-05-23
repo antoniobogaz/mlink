@@ -1,7 +1,7 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:mlink_app/views/signInPage.dart';
+//import 'package:flutter/src/widgets/placeholder.dart';
+//import 'package:mlink_app/views/signInPage.dart';
 import 'package:mlink_app/views/ProfilePage.dart';
 import 'package:mlink_app/views/feedPage.dart';
 
