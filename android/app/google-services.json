@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "192181998208",
+    "firebase_url": "https://musical-link-e573f-default-rtdb.firebaseio.com",
+    "project_id": "musical-link-e573f",
+    "storage_bucket": "musical-link-e573f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192181998208:android:8696381eaa55b9d0144c65",
+        "android_client_info": {
+          "package_name": "com.example.mlink_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192181998208-bi9e4h342s37tinll3itfibj69kep7ni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_pibz75VBu2fUQzUvA7v65BTMVmOUdvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192181998208-bi9e4h342s37tinll3itfibj69kep7ni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

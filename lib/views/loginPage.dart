@@ -1,9 +1,12 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:mlink_app/services/auth_service.dart';
 //import 'package:flutter/src/widgets/placeholder.dart';
-//import 'package:mlink_app/views/signInPage.dart';
+import 'package:mlink_app/views/signInPage.dart';
 import 'package:mlink_app/views/ProfilePage.dart';
 import 'package:mlink_app/views/feedPage.dart';
+import 'package:mlink_app/views/searchPage.dart';
+import 'package:provider/provider.dart';
 
 class loginPage extends StatefulWidget {
   const loginPage({super.key});
@@ -13,8 +16,23 @@ class loginPage extends StatefulWidget {
 }
 
 class _loginPageState extends State<loginPage> {
+  final formKey = GlobalKey<FormState>();
+  final email = TextEditingController();
+  final senha = TextEditingController();
   String logo = 'images/Logo_v2_roxa.png';
   bool _obscureText = true;
+
+  //bool isLogin = true;
+
+  login() async {
+    try {
+      await context.read<AuthService>().login(email.text, senha.text);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,11 +108,19 @@ class _loginPageState extends State<loginPage> {
                         boxShadow: [
                           BoxShadow(color: Colors.black12, blurRadius: 5)
                         ]),
-                    child: TextField(
+                    child: TextFormField(
+                      controller: email,
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           icon: Icon(Icons.email, color: Colors.grey),
                           hintText: 'Email'),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Informe o email corretamente!';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   Container(
@@ -110,7 +136,8 @@ class _loginPageState extends State<loginPage> {
                         boxShadow: [
                           BoxShadow(color: Colors.black12, blurRadius: 5)
                         ]),
-                    child: TextField(
+                    child: TextFormField(
+                      controller: senha,
                       obscureText: _obscureText,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -129,6 +156,14 @@ class _loginPageState extends State<loginPage> {
                           },
                         ),
                       ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Informa sua senha!';
+                        } else if (value.length < 6) {
+                          return 'Sua senha deve ter no mínimo 6 caracteres';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   /*Align(
@@ -144,10 +179,13 @@ class _loginPageState extends State<loginPage> {
                   Spacer(),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
+                      if (formKey.currentState!.validate()) {
+                        login();
+                      }
+                      /*Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => profilePage()));
+                              builder: (context) => searchPage()));*/
                     },
                     child: Container(
                       height: 50,
@@ -179,7 +217,7 @@ class _loginPageState extends State<loginPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => feedPage()));
+                                    builder: (context) => signInPage()));
                           },
                           child: Text(
                             'Não tem uma conta? Cadastre-se',

@@ -91,7 +91,7 @@ class _profilePageState extends State<profilePage> {
   Widget buildCoverImage() => Container(
         color: Colors.grey,
         child: Image.network(
-            'https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            'https://www.pontotel.com.br//wp-content//uploads//2022//05//imagem-corporativa.jpg',
             width: double.infinity,
             height: coverHeight,
             fit: BoxFit.cover),
