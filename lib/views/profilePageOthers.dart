@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:mlink_app/views/loginPage.dart';
 import 'package:mlink_app/widgets/numbers_widget.dart';
-//import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 //import 'package:mlink_app/views/editProfile.dart';
 import 'package:mlink_app/views/searchPage.dart';
 //import 'package:mlink_app/widgets/bottom_nav_bar.dart';
@@ -27,6 +27,11 @@ class _profilePageOthersState extends State<profilePageOthers> {
       _currentIndex = index;
     });
   }*/
+  final urlImages = [
+    'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
+    'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
+    'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +65,23 @@ class _profilePageOthersState extends State<profilePageOthers> {
             children: [
               buildTop(),
               buildContent(),
+              Center(
+                child: CarouselSlider.builder(
+                  itemCount: urlImages.length,
+                  itemBuilder: (context, index, realIndex) {
+                    final UrlImage = urlImages[index];
+
+                    return buildImage(UrlImage, index);
+                  },
+                  options: CarouselOptions(
+                    height: 400,
+                    autoPlay: true,
+                    reverse: false,
+                    autoPlayInterval: Duration(seconds: 3),
+                    enlargeCenterPage: true,
+                  ),
+                ),
+              ),
             ],
           ),
         ],
@@ -302,11 +324,9 @@ class _profilePageOthersState extends State<profilePageOthers> {
             //buildAbout(),
             const SizedBox(height: 20),
             //const SizedBox(height: 30),
-            Center(
-              child: Text(
-                'Contato',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
+            Text(
+              'Contato',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Row(
@@ -315,9 +335,13 @@ class _profilePageOthersState extends State<profilePageOthers> {
                   'Telefone: ',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                Text(
-                  '(17) 3464-4314',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                Expanded(
+                  child: Text(
+                    '(17) 3464-4314',
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ],
             ),
@@ -327,9 +351,13 @@ class _profilePageOthersState extends State<profilePageOthers> {
                   'Celular: ',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                Text('(17) 99256-7842',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                Expanded(
+                  child: Text('(17) 99256-7842',
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                ),
               ],
             ),
             Row(
@@ -338,20 +366,22 @@ class _profilePageOthersState extends State<profilePageOthers> {
                   'Email: ',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                Text('DanielSilva@gmail.com',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                Expanded(
+                  child: Text('DanielSilva@gmail.com',
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                ),
               ],
             ),
             /*const Divider(
               color: Color.fromARGB(255, 139, 92, 235),
             ),*/
             const SizedBox(height: 28),
-            Center(
-              child: Text(
-                'Biografia',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
+            Text(
+              'Biografia',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Text(
@@ -386,6 +416,14 @@ class _profilePageOthersState extends State<profilePageOthers> {
               child: Icon(icon, size: 32, color: Colors.white),
             ),
           ),
+        ),
+      );
+  Widget buildImage(String urlImage, int index) => Container(
+        margin: EdgeInsets.symmetric(horizontal: 12),
+        color: Colors.grey,
+        child: Image.network(
+          urlImage,
+          fit: BoxFit.cover,
         ),
       );
 }

@@ -179,13 +179,11 @@ class _loginPageState extends State<loginPage> {
                   Spacer(),
                   InkWell(
                     onTap: () {
-                      if (formKey.currentState!.validate()) {
+                      /*if (formKey.currentState!.validate()) {
                         login();
-                      }
-                      /*Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => searchPage()));*/
+                      }*/
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => feedPage()));
                     },
                     child: Container(
                       height: 50,

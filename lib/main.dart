@@ -14,7 +14,13 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  //await Firebase.initializeApp();
+  try {
+    await Firebase.initializeApp();
+    // Conexão com o Firebase foi estabelecida com sucesso
+  } catch (e) {
+    print('Erro ao inicializar o Firebase: $e');
+  }
 
   runApp(const MyApp());
 }

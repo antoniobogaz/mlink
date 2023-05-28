@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:mlink_app/views/loginPage.dart';
 import 'package:mlink_app/widgets/numbers_widget.dart';
-//import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mlink_app/views/editProfile.dart';
 import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
@@ -21,6 +21,12 @@ class _profilePageState extends State<profilePage> {
   final double coverHeight = 230;
   final double profileHeight = 144;
   int _currentIndex = 4;
+
+  final urlImages = [
+    'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
+    'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
+    'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png'
+  ];
 
   /*void _onItemTapped(int index) {
     setState(() {
@@ -61,6 +67,23 @@ class _profilePageState extends State<profilePage> {
               buildTop(),
               buildContent(),
               //editProfileButton(),
+              Center(
+                child: CarouselSlider.builder(
+                  itemCount: urlImages.length,
+                  itemBuilder: (context, index, realIndex) {
+                    final UrlImage = urlImages[index];
+
+                    return buildImage(UrlImage, index);
+                  },
+                  options: CarouselOptions(
+                    height: 400,
+                    autoPlay: true,
+                    reverse: false,
+                    autoPlayInterval: Duration(seconds: 3),
+                    enlargeCenterPage: true,
+                  ),
+                ),
+              ),
             ],
           ),
         ],
@@ -68,6 +91,15 @@ class _profilePageState extends State<profilePage> {
       bottomNavigationBar: BottomNavBar(currentIndex: _currentIndex),
     );
   }
+
+  Widget buildImage(String urlImage, int index) => Container(
+        margin: EdgeInsets.symmetric(horizontal: 12),
+        color: Colors.grey,
+        child: Image.network(
+          urlImage,
+          fit: BoxFit.cover,
+        ),
+      );
 
   Widget buildTop() {
     final bottom = profileHeight / 1.9;
@@ -91,7 +123,7 @@ class _profilePageState extends State<profilePage> {
   Widget buildCoverImage() => Container(
         color: Colors.grey,
         child: Image.network(
-            'https://www.pontotel.com.br//wp-content//uploads//2022//05//imagem-corporativa.jpg',
+            'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
             width: double.infinity,
             height: coverHeight,
             fit: BoxFit.cover),
@@ -100,8 +132,8 @@ class _profilePageState extends State<profilePage> {
   Widget buildProfileImage() => CircleAvatar(
         radius: profileHeight / 2,
         backgroundColor: Colors.red,
-        backgroundImage: NetworkImage(
-          'https://images.pexels.com/photos/167378/pexels-photo-167378.jpeg?auto=compress&cs=tinysrgb&w=400',
+        backgroundImage: const NetworkImage(
+          'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
         ),
         child: Container(
           width: double.infinity,
@@ -312,11 +344,9 @@ class _profilePageState extends State<profilePage> {
             const SizedBox(height: 20),
             //const SizedBox(height: 30),
             Container(),
-            Center(
-              child: Text(
-                'Contato',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
+            Text(
+              'Contato',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Row(
@@ -326,7 +356,7 @@ class _profilePageState extends State<profilePage> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  '(17) 3464-4314',
+                  '(17) 3464-43148',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ],
@@ -357,17 +387,23 @@ class _profilePageState extends State<profilePage> {
               color: Color.fromARGB(255, 139, 92, 235),
             ),*/
             const SizedBox(height: 28),
-            Center(
-              child: Text(
-                'Biografia',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
+            Text(
+              'Biografia',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Center(
-              child: Text(
-                'Minha história começa quando ganhei meu primeiro instrumento, um violão, aos 10 anos de idade.\nDesde então, eu me dediquei a aprender a tocar vários instrumentos, como guitarra, baixo, bateria e piano. Cresci ouvindo diferentes estilos musicais e sempre busquei incorporar essas influências em minha própria música.',
-                style: TextStyle(fontSize: 18, height: 1.4),
+              child: Container(
+                width: 450,
+                //height: 400,
+                child: Wrap(
+                  children: [
+                    Text(
+                      'Minha história começa quando ganhei meu primeiro instrumento, um violão, aos 10 anos de idade.\nDesde então, eu me dediquei a aprender a tocar vários instrumentos, como guitarra, baixo, bateria e piano. Cresci ouvindo diferentes estilos musicais e sempre busquei incorporar essas influências em minha própria música.',
+                      style: TextStyle(fontSize: 18, height: 1.4),
+                    ),
+                  ],
+                ),
               ),
             ),
             /*const Divider(

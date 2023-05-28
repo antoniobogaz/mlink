@@ -42,7 +42,7 @@ class _feedPageState extends State<feedPage> {
                 MaterialPageRoute(builder: (context) => likedProfile()),
               );
             },
-            icon: Icon(Icons.favorite_border),
+            icon: Icon(Icons.favorite),
           ),
         ],
       ),
