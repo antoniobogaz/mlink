@@ -30,7 +30,7 @@ class _likedProfileState extends State<likedProfile> {
         automaticallyImplyLeading: false,
         backgroundColor: Color.fromARGB(255, 139, 92, 235),
         title: Text(
-          'Curtidos',
+          'Curtidas',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
       ),
@@ -149,7 +149,7 @@ class CardItem extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 4.0, right: 15),
                       child: Row(
                         children: [
-                          SizedBox(width: 4),
+                          SizedBox(width: 5),
                           Text(
                             'Email:',
                             style: TextStyle(

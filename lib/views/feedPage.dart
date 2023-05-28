@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:mlink_app/services/auth_service.dart';
 //import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 import 'package:mlink_app/views/profilePageOthers.dart';
 import 'package:mlink_app/views/likedProfile.dart';
+import 'package:provider/provider.dart';
 
 class feedPage extends StatefulWidget {
   const feedPage({super.key});
@@ -43,6 +45,12 @@ class _feedPageState extends State<feedPage> {
               );
             },
             icon: Icon(Icons.favorite),
+          ),
+          IconButton(
+            onPressed: () {
+              context.read<AuthService>().logout();
+            },
+            icon: Icon(Icons.logout),
           ),
         ],
       ),

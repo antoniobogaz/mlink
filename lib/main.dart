@@ -5,7 +5,6 @@ import 'package:mlink_app/services/auth_service.dart';
 import 'package:mlink_app/views/feedPage.dart';
 import 'package:mlink_app/views/profilePage.dart';
 import 'package:mlink_app/views/searchPage.dart';
-import 'package:mlink_app/views/startScreen.dart';
 import 'package:mlink_app/views/likedProfile.dart';
 import 'package:mlink_app/views/newPost.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -51,13 +51,14 @@ class _profilePageState extends State<profilePage> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => searchPage()),
-                );
-              },
-              icon: Icon(Icons.search))
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => searchPage()),
+              );
+            },
+            icon: Icon(Icons.search),
+          ),
         ],
       ),
       body: ListView(

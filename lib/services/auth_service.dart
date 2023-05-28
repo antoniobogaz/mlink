@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class AuthException implements Exception {
   String message;
@@ -9,7 +10,7 @@ class AuthException implements Exception {
 class AuthService extends ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
   User? usuario;
-  bool isloading = true;
+  bool isLoading = true;
 
   AuthService() {
     _authCheck();
@@ -18,7 +19,7 @@ class AuthService extends ChangeNotifier {
   _authCheck() {
     _auth.authStateChanges().listen((User? user) {
       usuario = (user == null) ? null : user;
-      isloading = false;
+      isLoading = false;
       notifyListeners();
     });
   }
