@@ -6,6 +6,7 @@ import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 import 'package:mlink_app/views/profilePageOthers.dart';
 import 'package:mlink_app/views/likedProfile.dart';
 import 'package:provider/provider.dart';
+import 'package:mlink_app/views/loginRegister.dart';
 
 class feedPage extends StatefulWidget {
   const feedPage({super.key});
@@ -49,6 +50,8 @@ class _feedPageState extends State<feedPage> {
           IconButton(
             onPressed: () {
               context.read<AuthService>().logout();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => loginRegisterPage()));
             },
             icon: Icon(Icons.logout),
           ),

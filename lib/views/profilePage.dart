@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/src/widgets/framework.dart';
 //import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
@@ -121,32 +122,66 @@ class _profilePageState extends State<profilePage> {
     );
   }
 
-  Widget buildCoverImage() => Container(
-        color: Colors.grey,
-        child: Image.network(
-            'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
-            width: double.infinity,
-            height: coverHeight,
-            fit: BoxFit.cover),
-      );
-
-  Widget buildProfileImage() => CircleAvatar(
-        radius: profileHeight / 2,
-        backgroundColor: Colors.red,
-        backgroundImage: const NetworkImage(
-          'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
-        ),
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: Color.fromARGB(255, 139, 92, 235),
-              width: 5.0,
+  Widget buildCoverImage() => Stack(
+        children: [
+          Container(
+            color: Colors.grey,
+            child: Image.network(
+                'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
+                width: double.infinity,
+                height: coverHeight,
+                fit: BoxFit.cover),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 180, left: 360),
+            child: CircleAvatar(
+              backgroundColor: Colors.black54,
+              child: IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              ),
             ),
           ),
-        ),
+        ],
+      );
+
+  Widget buildProfileImage() => Stack(
+        children: [
+          CircleAvatar(
+            radius: profileHeight / 2,
+            backgroundColor: Colors.red,
+            backgroundImage: const NetworkImage(
+              'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
+            ),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Color.fromARGB(255, 139, 92, 235),
+                  width: 5.0,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 110, left: 100),
+            child: CircleAvatar(
+              backgroundColor: Colors.black45,
+              child: IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ],
       );
 
   Widget buildContent() => Container(

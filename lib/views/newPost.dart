@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 //import 'package:mlink_app/views/likedProfile.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class newPostPage extends StatefulWidget {
   const newPostPage({super.key});
@@ -13,11 +15,13 @@ class _newPostPageState extends State<newPostPage> {
   //final TextEditingController _controller = TextEditingController();
   int _currentIndex = 2;
 
-  /*void _onItemTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }*/
+  final FirebaseStorage storage = FirebaseStorage.instance;
+
+  Future<XFile?> getImage() async {
+    final ImagePicker _picker = ImagePicker();
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    return image;
+  }
 
   @override
   Widget build(BuildContext context) {
