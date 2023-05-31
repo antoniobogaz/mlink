@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mlink_app/views/AddProfile.dart';
 import 'package:mlink_app/views/searchPage.dart';
 
 class editProfile extends StatefulWidget {
@@ -350,6 +351,31 @@ class _editProfileState extends State<editProfile> {
                 ),
               ),
               SizedBox(height: 10),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddProfile()),
+                  );
+                },
+                child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 139, 92, 235),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Incluir Informações (PROVISÓRIO)'.toUpperCase(),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ],

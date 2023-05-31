@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:mlink_app/services/firebase_crud.dart';
 //import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 //import 'package:mlink_app/views/profilePageOthers.dart';
@@ -14,6 +15,8 @@ class likedProfile extends StatefulWidget {
 
 @override
 class _likedProfileState extends State<likedProfile> {
+  final Stream<QuerySnapshot> collectionReference = FirebaseCrud.readUsuarios();
+  //FirebaseFirestore.instance.collection('usuarios').snapshots();
   int _currentIndex = 3;
 
   /*void _onItemTapped(int index) {

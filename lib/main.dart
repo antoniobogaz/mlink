@@ -10,9 +10,11 @@ import 'package:mlink_app/views/newPost.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mlink_app/widgets/auth_check.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   //await Firebase.initializeApp();
   try {
     await Firebase.initializeApp();

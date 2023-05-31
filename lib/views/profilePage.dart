@@ -10,6 +10,7 @@ import 'package:mlink_app/views/editProfile.dart';
 import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 import 'package:mlink_app/views/newPost.dart';
+import 'package:mlink_app/services/firebase_crud.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});

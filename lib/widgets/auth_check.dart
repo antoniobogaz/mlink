@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mlink_app/services/auth_service.dart';
+import 'package:mlink_app/views/AddProfile.dart';
 import 'package:mlink_app/views/loginRegister.dart';
 import 'package:provider/provider.dart';
 import 'package:mlink_app/views/feedPage.dart';
