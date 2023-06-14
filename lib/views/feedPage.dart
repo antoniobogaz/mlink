@@ -49,7 +49,7 @@ class _feedPageState extends State<feedPage> {
           ),
           IconButton(
             onPressed: () {
-              context.read<AuthService>().logout();
+              context.read<AuthService>().logout(context);
               /*Navigator.push(context,
                   MaterialPageRoute(builder: (context) => loginRegisterPage()));*/
             },

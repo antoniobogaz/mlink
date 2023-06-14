@@ -5,6 +5,7 @@ import 'package:mlink_app/views/AddProfile.dart';
 import 'package:mlink_app/views/loginRegister.dart';
 import 'package:provider/provider.dart';
 import 'package:mlink_app/views/feedPage.dart';
+import 'package:mlink_app/views/ProfilePage.dart';
 
 class AuthCheck extends StatefulWidget {
   AuthCheck({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _AuthCheckState extends State<AuthCheck> {
     else if (auth.usuario == null)
       return loginRegisterPage();
     else
-      return feedPage();
+      return profilePage();
   }
 
   loading() {

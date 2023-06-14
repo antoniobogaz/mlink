@@ -44,7 +44,7 @@ class _searchPageState extends State<searchPage> {
             },
             decoration: InputDecoration(
               //border: InputBorder.none,
-              suffixIcon: Padding(
+              /*suffixIcon: Padding(
                 padding: EdgeInsets.only(right: 12.0),
                 child: IconButton(
                   icon: Icon(Icons.clear,
@@ -55,7 +55,7 @@ class _searchPageState extends State<searchPage> {
                     });
                   },
                 ),
-              ),
+              ),*/
               filled: true,
               fillColor: Colors.white,
               border: /*InputBorder.none,*/
@@ -108,10 +108,30 @@ class _searchPageState extends State<searchPage> {
                         ),
                       );
                     }
-                    if (data['nome_usuario']
-                        .toString()
-                        .toLowerCase()
-                        .startsWith(name.toLowerCase())) {
+                    if (data['primeira_palavra_chave']
+                            .toString()
+                            .toLowerCase()
+                            .startsWith(name.toLowerCase()) ||
+                        data['segunda_palavra_chave']
+                            .toString()
+                            .toLowerCase()
+                            .startsWith(name.toLowerCase()) ||
+                        data['terceira_palavra_chave']
+                            .toString()
+                            .toLowerCase()
+                            .startsWith(name.toLowerCase()) ||
+                        data['quarta_palavra_chave']
+                            .toString()
+                            .toLowerCase()
+                            .startsWith(name.toLowerCase()) ||
+                        data['quinta_palavra_chave']
+                            .toString()
+                            .toLowerCase()
+                            .startsWith(name.toLowerCase()) ||
+                        data['sexta_palavra_chave']
+                            .toString()
+                            .toLowerCase()
+                            .startsWith(name.toLowerCase())) {
                       return ListTile(
                         title: Text(
                           data['nome_usuario'],

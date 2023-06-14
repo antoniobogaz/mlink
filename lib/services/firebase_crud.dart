@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mlink_app/models/response.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _Collection = _firestore.collection('usuarios');
@@ -20,7 +21,11 @@ class FirebaseCrud {
     required String biografia,
   }) async {
     Response response = Response();
-    DocumentReference documentReferencer = _Collection.doc();
+    //DocumentReference documentReferencer = _Collection.doc();
+    User? user = FirebaseAuth.instance.currentUser;
+    String uid = user!.uid;
+
+    DocumentReference documentReferencer = _Collection.doc(uid);
 
     Map<String, dynamic> data = <String, dynamic>{
       "nome_usuario": nomeUsuario,
@@ -37,13 +42,22 @@ class FirebaseCrud {
       "biografia": biografia
     };
 
-    var result = await documentReferencer.set(data).whenComplete(() {
+    /*var result = await documentReferencer.set(data).whenComplete(() {
       response.codigo = 200;
       response.mensagem = 'Adicionado com sucesso';
     }).catchError((e) {
       response.codigo = 500;
       response.mensagem = e;
-    });
+    });*/
+    try {
+      await documentReferencer.set(data).whenComplete(() {
+        response.codigo = 200;
+        response.mensagem = 'Adicionado com sucesso';
+      });
+    } catch (e) {
+      response.codigo = 500;
+      response.mensagem = e.toString();
+    }
 
     return response;
   }
@@ -98,7 +112,7 @@ class FirebaseCrud {
     return notesItemCollection.snapshots();
   }
 
-  static Future<Response> deleteEmployee({
+  static Future<Response> deleteUsuario({
     required String docId,
   }) async {
     Response response = Response();

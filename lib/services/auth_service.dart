@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mlink_app/views/AddProfile.dart';
+import 'package:mlink_app/views/loginRegister.dart';
 
 class AuthException implements Exception {
   String message;
@@ -29,10 +31,11 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
-  registrar(String email, String senha) async {
+  registrar(BuildContext context, String email, String senha) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: senha);
       _getUser();
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AddProfile()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthException('A senha é muito fraca');
@@ -55,8 +58,14 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  logout() async {
+  logout(BuildContext context) async {
     await _auth.signOut();
     _getUser();
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => loginRegisterPage()),
+      (route) => false,
+    );
   }
 }

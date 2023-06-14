@@ -1,16 +1,18 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/src/widgets/framework.dart';
-//import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-//import 'package:mlink_app/views/loginPage.dart';
 import 'package:mlink_app/widgets/numbers_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mlink_app/views/editProfile.dart';
 import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/widgets/bottom_nav_bar.dart';
 import 'package:mlink_app/views/newPost.dart';
-import 'package:mlink_app/services/firebase_crud.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:image_picker/image_picker.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});
@@ -20,21 +22,171 @@ class profilePage extends StatefulWidget {
 }
 
 class _profilePageState extends State<profilePage> {
+  /*--------------------------------------------------------------------------*/
+  Future<File?> pickImage() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      return File(pickedImage.path);
+    }
+
+    return null;
+  }
+
+  /*--------------------------------------------------------------------------*/
+  Future<void> uploadProfileImage(File imageFile) async {
+    //obtém o usuário atualmente autenticado
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      //define o caminho de armazenamento com o UID do usuário
+      String storagePath = 'profile_images/${user.uid}/${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+      try {
+        //faz o upload da imagem para o Firebase Storage
+        await FirebaseStorage.instance.ref(storagePath).putFile(imageFile);
+
+        //atualiza o campo de foto de perfil do usuário com o caminho da imagem no Storage
+        String imageUrl = await FirebaseStorage.instance.ref(storagePath).getDownloadURL();
+        await user.updatePhotoURL(imageUrl);
+
+        print('Imagem de perfil enviada com sucesso.');
+      } catch (e) {
+        print('Erro ao enviar imagem de perfil: $e');
+      }
+    } else {
+      print('Usuário não autenticado.');
+    }
+  }
+
+  /*--------------------------------------------------------------------------*/
+  Future<String?> getProfileImageUrl() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      String storagePath = 'profile_images/${user.uid}/'; // caminho da pasta do usuário
+
+      try {
+        // Lista os arquivos dentro da pasta do usuário
+        ListResult result = await FirebaseStorage.instance.ref(storagePath).listAll();
+
+        // Verifica se há algum arquivo na pasta
+        if (result.items.isNotEmpty) {
+          // Classifica os arquivos com base no campo de data/hora no nome do arquivo em ordem decrescente
+          result.items.sort((a, b) => b.name.compareTo(a.name));
+
+          // Obtém o primeiro arquivo (neste caso, a imagem mais recente)
+          Reference imageRef = result.items.last;
+
+          // Obtém o URL da imagem
+          String imageUrl = await imageRef.getDownloadURL();
+
+          return imageUrl;
+        } else {
+          // Não há imagem de perfil para o usuário
+          return null;
+        }
+      } catch (e) {
+        print('Erro ao buscar imagem de perfil: $e');
+        return null;
+      }
+    } else {
+      print('Usuário não autenticado.');
+      return null;
+    }
+  }
+
+/*----------------------------------------------------------------------------*/
+  Future<void> uploadCoverImage(File imageFile) async {
+    //obtém o usuário atualmente autenticado
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      //define o caminho de armazenamento com o UID do usuário
+      String storagePath = 'cover_images/${user.uid}/${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+      try {
+        //faz o upload da imagem para o Firebase Storage
+        await FirebaseStorage.instance.ref(storagePath).putFile(imageFile);
+
+        //atualiza o campo de foto de perfil do usuário com o caminho da imagem no Storage
+        String imageUrl = await FirebaseStorage.instance.ref(storagePath).getDownloadURL();
+        await user.updatePhotoURL(imageUrl);
+
+        print('Imagem de capa enviada com sucesso.');
+      } catch (e) {
+        print('Erro ao enviar imagem de capa: $e');
+      }
+    } else {
+      print('Usuário não autenticado.');
+    }
+  }
+
+  /*--------------------------------------------------------------------------*/
+  Future<String?> getCoverImageUrl() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      String storagePath = 'cover_images/${user.uid}/'; // caminho da pasta do usuário
+
+      try {
+        // Lista os arquivos dentro da pasta do usuário
+        ListResult result = await FirebaseStorage.instance.ref(storagePath).listAll();
+
+        // Verifica se há algum arquivo na pasta
+        if (result.items.isNotEmpty) {
+          // Classifica os arquivos com base no campo de data/hora no nome do arquivo em ordem decrescente
+          result.items.sort((a, b) => b.name.compareTo(a.name));
+
+          // Obtém o primeiro arquivo (neste caso, a imagem mais recente)
+          Reference imageRef = result.items.last;
+
+          // Obtém o URL da imagem
+          String imageUrl = await imageRef.getDownloadURL();
+
+          return imageUrl;
+        } else {
+          // Não há imagem de perfil para o usuário
+          return null;
+        }
+      } catch (e) {
+        print('Erro ao buscar imagem de capa: $e');
+        return null;
+      }
+    } else {
+      print('Usuário não autenticado.');
+      return null;
+    }
+  }
+
   final double coverHeight = 230;
   final double profileHeight = 144;
   int _currentIndex = 4;
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+  Map<String, dynamic> userData = {};
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection('usuarios').doc(uid).get();
+
+    if (snapshot.exists) {
+      setState(() {
+        userData = snapshot.data() as Map<String, dynamic>;
+      });
+    }
+  }
 
   final urlImages = [
     'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
     'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
     'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png'
   ];
-
-  /*void _onItemTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +195,9 @@ class _profilePageState extends State<profilePage> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Color.fromARGB(255, 139, 92, 235),
-        title: Text('Daniel da Silva'),
+        title: Text(
+          '${userData['nome_usuario'] ?? ''}',
+        ),
         centerTitle: true, //aqui vai o nome do usuário
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -80,7 +234,7 @@ class _profilePageState extends State<profilePage> {
                   },
                   options: CarouselOptions(
                     height: 400,
-                    autoPlay: true,
+                    //autoPlay: true,
                     reverse: false,
                     autoPlayInterval: Duration(seconds: 3),
                     enlargeCenterPage: true,
@@ -125,13 +279,35 @@ class _profilePageState extends State<profilePage> {
 
   Widget buildCoverImage() => Stack(
         children: [
-          Container(
-            color: Colors.grey,
-            child: Image.network(
-                'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
-                width: double.infinity,
-                height: coverHeight,
-                fit: BoxFit.cover),
+          FutureBuilder<String?>(
+            future: getCoverImageUrl(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Container(
+                  color: Colors.grey,
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              } else if (snapshot.hasError) {
+                return Container(
+                  color: Colors.grey,
+                  child: Text('Erro ao carregar a imagem de capa'),
+                );
+              } else if (snapshot.hasData && snapshot.data != null) {
+                return Container(
+                  color: Colors.grey,
+                  child: Image.network(
+                    snapshot.data!,
+                    width: double.infinity,
+                    height: coverHeight,
+                    fit: BoxFit.cover,
+                  ),
+                );
+              } else {
+                return Container(
+                  color: Colors.grey,
+                );
+              }
+            },
           ),
           Padding(
             padding: const EdgeInsets.only(top: 180, left: 360),
@@ -142,7 +318,14 @@ class _profilePageState extends State<profilePage> {
                   Icons.edit,
                   color: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  File? imageFile = await pickImage();
+                  if (imageFile != null) {
+                    await uploadCoverImage(imageFile);
+                  } else {
+                    print('nenhuma imagem selecionada.');
+                  }
+                },
               ),
             ),
           ),
@@ -151,23 +334,42 @@ class _profilePageState extends State<profilePage> {
 
   Widget buildProfileImage() => Stack(
         children: [
-          CircleAvatar(
-            radius: profileHeight / 2,
-            backgroundColor: Colors.red,
-            backgroundImage: const NetworkImage(
-              'https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png',
-            ),
-            child: Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Color.fromARGB(255, 139, 92, 235),
-                  width: 5.0,
-                ),
-              ),
-            ),
+          FutureBuilder<String?>(
+            future: getProfileImageUrl(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                // Enquanto o URL da imagem está sendo buscado, exibe um indicador de carregamento
+                return Container(child: Center(child: CircularProgressIndicator()));
+              } else if (snapshot.hasError) {
+                // Em caso de erro ao buscar o URL da imagem
+                return Container(child: Text('Erro ao carregar a imagem de perfil'));
+              } else if (snapshot.hasData && snapshot.data != null) {
+                // Se o URL da imagem for válido, exibe a imagem usando o CircleAvatar
+                return CircleAvatar(
+                  radius: profileHeight / 2,
+                  backgroundColor: Colors.red,
+                  backgroundImage: NetworkImage(snapshot.data!),
+                  child: Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Color.fromARGB(255, 139, 92, 235),
+                        width: 5.0,
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                // Se não houver imagem de perfil para o usuário, exibe um ícone ou imagem padrão
+                return CircleAvatar(
+                  radius: profileHeight / 2,
+                  backgroundColor: Colors.red,
+                  child: Icon(Icons.account_circle, size: profileHeight),
+                );
+              }
+            },
           ),
           Padding(
             padding: const EdgeInsets.only(top: 110, left: 100),
@@ -178,7 +380,14 @@ class _profilePageState extends State<profilePage> {
                   Icons.edit,
                   color: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  File? imageFile = await pickImage();
+                  if (imageFile != null) {
+                    uploadProfileImage(imageFile);
+                  } else {
+                    print('nenhuma imagem selecionada.');
+                  }
+                },
               ),
             ),
           ),
@@ -192,13 +401,13 @@ class _profilePageState extends State<profilePage> {
           children: [
             Center(
               child: Text(
-                'Daniel da Silva',
+                '${userData['nome_usuario'] ?? ''}',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),
             Center(
               child: Text(
-                'Cantor, compositor e músico',
+                '${userData['descricao'] ?? ''}',
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.w300),
               ),
             ),
@@ -245,10 +454,8 @@ class _profilePageState extends State<profilePage> {
                         ),
                         child: Center(
                           child: Text(
-                            'instrumento'.toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            '${userData['primeira_palavra_chave'] ?? ''}'.toUpperCase(),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -265,10 +472,8 @@ class _profilePageState extends State<profilePage> {
                         ),
                         child: Center(
                           child: Text(
-                            'festivais'.toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            '${userData['segunda_palavra_chave'] ?? ''}'.toUpperCase(),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -285,10 +490,8 @@ class _profilePageState extends State<profilePage> {
                         ),
                         child: Center(
                           child: Text(
-                            'composição'.toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            '${userData['terceira_palavra_chave'] ?? ''}'.toUpperCase(),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -313,10 +516,8 @@ class _profilePageState extends State<profilePage> {
                         ),
                         child: Center(
                           child: Text(
-                            'gravadoras'.toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            '${userData['quarta_palavra_chave'] ?? ''}'.toUpperCase(),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -333,10 +534,8 @@ class _profilePageState extends State<profilePage> {
                         ),
                         child: Center(
                           child: Text(
-                            'expressão'.toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            '${userData['quinta_palavra_chave'] ?? ''}'.toUpperCase(),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -353,10 +552,8 @@ class _profilePageState extends State<profilePage> {
                         ),
                         child: Center(
                           child: Text(
-                            'ritmo'.toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            '${userData['sexta_palavra_chave'] ?? ''}'.toUpperCase(),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -393,7 +590,7 @@ class _profilePageState extends State<profilePage> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  '(17) 3464-43148',
+                  '${userData['telefone'] ?? ''}',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ],
@@ -404,9 +601,7 @@ class _profilePageState extends State<profilePage> {
                   'Celular: ',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                Text('(17) 99256-7842',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                Text('${userData['celular'] ?? ''}', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
             Row(
@@ -415,9 +610,7 @@ class _profilePageState extends State<profilePage> {
                   'Email: ',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                Text('DanielSilva@gmail.com',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                Text('${userData['email'] ?? ''}', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
             /*const Divider(
@@ -436,7 +629,7 @@ class _profilePageState extends State<profilePage> {
                 child: Wrap(
                   children: [
                     Text(
-                      'Minha história começa quando ganhei meu primeiro instrumento, um violão, aos 10 anos de idade.\nDesde então, eu me dediquei a aprender a tocar vários instrumentos, como guitarra, baixo, bateria e piano. Cresci ouvindo diferentes estilos musicais e sempre busquei incorporar essas influências em minha própria música.',
+                      '${userData['biografia'] ?? ''}',
                       style: TextStyle(fontSize: 18, height: 1.4),
                     ),
                   ],
@@ -503,8 +696,7 @@ class _profilePageState extends State<profilePage> {
                   ),
                   Text(
                     'editar perfil'.toUpperCase(),
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -541,8 +733,7 @@ class _profilePageState extends State<profilePage> {
               ),
               Text(
                 'Adicionar Mídia'.toUpperCase(),
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ],
           ),

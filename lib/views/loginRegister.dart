@@ -65,7 +65,9 @@ class _loginPageState extends State<loginRegisterPage> {
   registrar() async {
     setState(() => loading = true);
     try {
-      await context.read<AuthService>().registrar(email.text, senha.text);
+      await context
+          .read<AuthService>()
+          .registrar(context, email.text, senha.text);
     } on AuthException catch (e) {
       setState(() => loading = false);
       ScaffoldMessenger.of(context)

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mlink_app/views/feedPage.dart';
 import 'package:mlink_app/views/searchPage.dart';
 import 'package:mlink_app/services/firebase_crud.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:mlink_app/views/profilePage.dart';
 
 class AddProfile extends StatefulWidget {
   const AddProfile({super.key});
@@ -25,20 +29,18 @@ class _AddProfileState extends State<AddProfile> {
   final _sexta_palavra_chave = TextEditingController();
   final _biografia = TextEditingController();
 
+  /*MaskedTextController maskedControllerTelefone =
+      MaskedTextController(mask: '(00) 0000-0000', text: _telefone);*/
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0.0,
         backgroundColor: Color.fromARGB(255, 139, 92, 235),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: Form(
         key: _formKey,
@@ -63,20 +65,14 @@ class _AddProfileState extends State<AddProfile> {
                         alignment: Alignment.bottomCenter,
                         child: Text(
                           'Crie seu Perfil',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 39,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.white, fontSize: 39, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Align(
                         alignment: Alignment.topCenter,
                         child: Text(
                           'Adicione informações para os outros saberem mais sobre você',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
+                          style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
                         ),
                       ),
                     ],
@@ -84,7 +80,7 @@ class _AddProfileState extends State<AddProfile> {
                 ),
                 SizedBox(height: 30),
                 Text(
-                  'Identificação',
+                  'Identificação'.toUpperCase(),
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 30),
@@ -97,13 +93,16 @@ class _AddProfileState extends State<AddProfile> {
                         Radius.circular(10),
                       ),
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 5)
-                      ]),
+                      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                   child: TextFormField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z ]')),
+                    ],
                     controller: _nome_usuario,
+                    maxLength: 50,
                     autofocus: false,
                     decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(vertical: 5.0),
                         border: InputBorder.none,
                         //icon: Icon(Icons.email, color: Colors.grey),
                         hintText: 'Como as pessoas verão seu nome?'),
@@ -124,13 +123,13 @@ class _AddProfileState extends State<AddProfile> {
                         Radius.circular(10),
                       ),
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 5)
-                      ]),
+                      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                   child: TextFormField(
                     controller: _descricao,
+                    maxLength: 40,
                     autofocus: false,
                     decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(vertical: 4.0),
                         border: InputBorder.none,
                         //icon: Icon(Icons.email, color: Colors.grey),
                         hintText: 'Informe uma breve descrição sobre você'),
@@ -143,7 +142,7 @@ class _AddProfileState extends State<AddProfile> {
                 ),
                 SizedBox(height: 30),
                 Text(
-                  'Contatos',
+                  'Contato'.toUpperCase(),
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 30),
@@ -156,12 +155,14 @@ class _AddProfileState extends State<AddProfile> {
                         Radius.circular(10),
                       ),
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 5)
-                      ]),
+                      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                   child: TextFormField(
+                    keyboardType: TextInputType.phone,
                     controller: _telefone,
+                    maxLength: 12,
+                    //inputFormatters: [maskController.maskedControllerTelefone],
                     decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(vertical: 5.0),
                         border: InputBorder.none,
                         //icon: Icon(Icons.email, color: Colors.grey),
                         hintText: 'Informe seu número de Telefone'),
@@ -182,13 +183,14 @@ class _AddProfileState extends State<AddProfile> {
                         Radius.circular(10),
                       ),
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 5)
-                      ]),
+                      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                   child: TextFormField(
+                    keyboardType: TextInputType.phone,
                     controller: _celular,
+                    maxLength: 13,
                     autofocus: false,
                     decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(vertical: 4.0),
                         border: InputBorder.none,
                         //icon: Icon(Icons.email, color: Colors.grey),
                         hintText: 'Informe seu número de Celular'),
@@ -209,10 +211,9 @@ class _AddProfileState extends State<AddProfile> {
                         Radius.circular(10),
                       ),
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 5)
-                      ]),
+                      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                   child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
                     controller: _email,
                     autofocus: false,
                     decoration: InputDecoration(
@@ -228,8 +229,13 @@ class _AddProfileState extends State<AddProfile> {
                 ),
                 SizedBox(height: 30),
                 Text(
-                  'Palavras-Chave',
+                  'Palavras-Chave'.toUpperCase(),
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Informe palavras relacionadas ao seu perfil',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                 ),
                 SizedBox(height: 30),
                 Row(
@@ -246,13 +252,13 @@ class _AddProfileState extends State<AddProfile> {
                                 Radius.circular(10),
                               ),
                               color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(color: Colors.black12, blurRadius: 5)
-                              ]),
+                              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                           child: TextFormField(
                             controller: _primeira_palavra_chave,
+                            maxLength: 12,
                             autofocus: false,
                             decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 4.0),
                                 border: InputBorder.none,
                                 //icon: Icon(Icons.email, color: Colors.grey),
                                 hintText: '1ª Palavra-Chave'),
@@ -273,13 +279,13 @@ class _AddProfileState extends State<AddProfile> {
                                 Radius.circular(10),
                               ),
                               color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(color: Colors.black12, blurRadius: 5)
-                              ]),
+                              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                           child: TextFormField(
                             controller: _segunda_palavra_chave,
                             autofocus: false,
+                            maxLength: 12,
                             decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 4.0),
                                 border: InputBorder.none,
                                 //icon: Icon(Icons.email, color: Colors.grey),
                                 hintText: '2ª Palavra-Chave'),
@@ -300,13 +306,13 @@ class _AddProfileState extends State<AddProfile> {
                                 Radius.circular(10),
                               ),
                               color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(color: Colors.black12, blurRadius: 5)
-                              ]),
+                              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                           child: TextFormField(
                             controller: _terceira_palavra_chave,
+                            maxLength: 12,
                             autofocus: false,
                             decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 4.0),
                                 border: InputBorder.none,
                                 //icon: Icon(Icons.email, color: Colors.grey),
                                 hintText: '3ª Palavra-Chave'),
@@ -331,13 +337,13 @@ class _AddProfileState extends State<AddProfile> {
                                 Radius.circular(10),
                               ),
                               color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(color: Colors.black12, blurRadius: 5)
-                              ]),
+                              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                           child: TextFormField(
+                            maxLength: 12,
                             controller: _quarta_palavra_chave,
                             autofocus: false,
                             decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 4.0),
                                 border: InputBorder.none,
                                 //icon: Icon(Icons.email, color: Colors.grey),
                                 hintText: '4ª Palavra-Chave'),
@@ -358,13 +364,13 @@ class _AddProfileState extends State<AddProfile> {
                                 Radius.circular(10),
                               ),
                               color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(color: Colors.black12, blurRadius: 5)
-                              ]),
+                              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                           child: TextFormField(
+                            maxLength: 12,
                             controller: _quinta_palavra_chave,
                             autofocus: false,
                             decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 4.0),
                                 border: InputBorder.none,
                                 //icon: Icon(Icons.email, color: Colors.grey),
                                 hintText: '5ª Palavra-Chave'),
@@ -385,13 +391,13 @@ class _AddProfileState extends State<AddProfile> {
                                 Radius.circular(10),
                               ),
                               color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(color: Colors.black12, blurRadius: 5)
-                              ]),
+                              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                           child: TextFormField(
                             controller: _sexta_palavra_chave,
+                            maxLength: 12,
                             autofocus: false,
                             decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 4.0),
                                 border: InputBorder.none,
                                 //icon: Icon(Icons.email, color: Colors.grey),
                                 hintText: '6ª Palavra-Chave'),
@@ -408,7 +414,7 @@ class _AddProfileState extends State<AddProfile> {
                 ),
                 SizedBox(height: 30),
                 Text(
-                  'Biografia',
+                  'Biografia'.toUpperCase(),
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 30),
@@ -421,17 +427,16 @@ class _AddProfileState extends State<AddProfile> {
                         Radius.circular(10),
                       ),
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 5)
-                      ]),
+                      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
                   child: TextFormField(
+                    maxLines: null,
                     controller: _biografia,
+                    maxLength: 500,
                     autofocus: false,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         //icon: Icon(Icons.email, color: Colors.grey),
-                        hintText:
-                            'Conte um pouco sobre sua relação com a música...'),
+                        hintText: 'Conte um pouco sobre sua relação com a música...'),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
                         return 'Este campo é obrigatório';
@@ -459,7 +464,7 @@ class _AddProfileState extends State<AddProfile> {
                       if (response.codigo != 200) {
                         showDialog(
                             context: context,
-                            builder: (context) {
+                            builder: (BuildContext context) {
                               return AlertDialog(
                                 content: Text(response.mensagem.toString()),
                               );
@@ -467,9 +472,20 @@ class _AddProfileState extends State<AddProfile> {
                       } else {
                         showDialog(
                             context: context,
-                            builder: (context) {
+                            builder: (BuildContext context) {
                               return AlertDialog(
+                                title: Text('Salvo com sucesso!'),
                                 content: Text(response.mensagem.toString()),
+                                actions: [
+                                  TextButton(
+                                    child: Text('OK'),
+                                    onPressed: () {
+                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) {
+                                        return feedPage();
+                                      })));
+                                    },
+                                  )
+                                ],
                               );
                             });
                       }
@@ -487,8 +503,7 @@ class _AddProfileState extends State<AddProfile> {
                     child: Center(
                       child: Text(
                         'Salvar informações'.toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -501,20 +516,4 @@ class _AddProfileState extends State<AddProfile> {
       ),
     );
   }
-}
-
-class CurvedContainer extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = Color.fromARGB(255, 139, 92, 235);
-    Path path = Path()
-      ..relativeLineTo(0, 150)
-      ..quadraticBezierTo(size.width / 2, 225, size.width, 150)
-      ..relativeLineTo(0, -150)
-      ..close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
